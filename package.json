@@ -1,0 +1,22 @@
+{
+  "name": "c6bank-salesforce",
+  "version": "1.0.0",
+  "description": "## Dev, Build and Test",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "dexie": "^2.0.4",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

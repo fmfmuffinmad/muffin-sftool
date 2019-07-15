@@ -1,0 +1,14 @@
+.alias {
+    font-weight: 500;
+}
+
+.org {
+    border: 1px solid #ccc!important;
+    border-radius: 16px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.username {
+    font-size: 0.8rem;
+}
