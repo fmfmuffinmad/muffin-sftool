@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import fetch from "isomorphic-unfetch";
-import Dexie from "dexie";
+import { useState, useEffect } from 'react';
+import fetch from 'isomorphic-unfetch';
+import Dexie from 'dexie';
 import './index.css';
-import {OrgContext, orgContextProps} from './context/OrgContext';
+import {OrgContext} from './context/OrgContext';
 
-// components
-import SFOrgList from "./components/SFOrgList/SFOrgList";
-import SFOrgItem from "./components/SFOrgItem/SFOrgItem";
+// components 
+import SFOrgList from './components/SFOrgList/SFOrgList';
+import MetadataContainer from './components/MetadataContainer/MetadataContainer';
 
 const Index = () => {
   // ---------------- HOOKS -----------------------
@@ -16,8 +16,14 @@ const Index = () => {
   const [status, setStatus] = useState('');
   const [org, setOrg] = useState(null);
   const [showList, setShowList] = useState(false);
+  const [dummy, setDummy] = useState('');
 
-  // const [orgProps, setOrgProps] = useState(orgContextProps);
+  const [orgProps, setOrgProps] = useState({
+    currentOrg: org,
+    orgList: orgList,
+    setCurrentOrg: setOrg,
+    setOrgList: setOrgList
+  });
 
   // ======= EFFECTS ========
 
@@ -26,28 +32,24 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    setShowList(false);
+    if (org) {
+      setShowList(false);
+    } else {
+      setShowList(true);
+    }
   }, [org]);
 
   // ---------------- VARIABLES -------------------
-
-  const orgProps = {
-    currentOrg: org,
-    orgList: orgList,
-    setCurrentOrg: setOrg,
-    setOrgList: setOrgList
-  }
 
   // ---------------- METHODS ---------------------
 
   const fetchOrgs = async () => {
     setOrg(null);
-    setStatus('Fetching authorized orgs')
-    let res = await fetch("http://localhost:3000/api/sfdx/getOrgList");
+    setStatus('Fetching authorized orgs');
+    let res = await fetch("http://localhost:3000/api/sf/getOrgList");
     let data = await res.json();
     setOrgList(data.result.nonScratchOrgs);
     setStatus('');
-    setShowList(true);
   }
 
   return (
@@ -67,6 +69,7 @@ const Index = () => {
       {status ? <p>{status}</p> : ''}
       <OrgContext.Provider value={orgProps}>
         {showList ? <SFOrgList/> : ''}
+        <MetadataContainer />
       </OrgContext.Provider>
     </div>
   );

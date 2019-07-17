@@ -3,10 +3,10 @@ import { OrgContext } from '../../context/OrgContext';
 import './SFOrgItem.css';
 
 const SFOrgItem = props => {
-    const orgProps = useContext(OrgContext);
+    const orgContext = useContext(OrgContext);
 
     const org = props.org;
-    const setOrg = orgProps.setCurrentOrg;
+    const setOrg = orgContext.setCurrentOrg;
 
     const handleClick = () => {
         setOrg(org);
